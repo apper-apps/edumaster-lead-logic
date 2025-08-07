@@ -30,9 +30,9 @@ const CurriculumSidebar = ({ course, currentVideoIndex, onVideoChange, className
       </div>
 
       <div className="max-h-96 overflow-y-auto">
-        {course.curriculumVideos.map((video, index) => (
+{course.curriculumVideos.map((video, index) => (
           <motion.div
-            key={video.Id || index}
+            key={`${video.Id || 'video'}-${index}`}
             whileHover={{ backgroundColor: "#f8fafc" }}
             className={`curriculum-item cursor-pointer transition-all ${
               index === currentVideoIndex ? "active" : ""
@@ -52,9 +52,9 @@ const CurriculumSidebar = ({ course, currentVideoIndex, onVideoChange, className
                 <h4 className={`font-medium truncate ${
                   index === currentVideoIndex ? "text-primary" : "text-gray-900"
                 }`}>
-                  {video.title}
+                  {video?.title || "Untitled Video"}
                 </h4>
-                {video.duration && (
+                {video?.duration && typeof video.duration === 'number' && (
                   <p className="text-sm text-gray-500">
                     {Math.floor(video.duration / 60)}:{(video.duration % 60).toString().padStart(2, "0")}
                   </p>
